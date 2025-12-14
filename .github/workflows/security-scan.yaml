@@ -17,13 +17,8 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t myapp:latest .
-
-      - name: Install Trivy
-        run: |
-          sudo snap install trivy
-
       - name: Run Trivy scan
-        uses: aquasecurity/trivy-action@v0.33.1
+        uses: aquasecurity/trivy-action@0.10.0
         with:
           image-ref: 'myapp:latest'
           vuln-type: 'os,library'
@@ -32,7 +27,6 @@ jobs:
       - name: Install Semgrep
         run: |
           sudo pip install semgrep
-
       - name: Run Semgrep SAST
         run: |
           semgrep --config p/security-audit --error --json .
